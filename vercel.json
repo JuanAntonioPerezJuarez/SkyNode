@@ -4,20 +4,12 @@
         {
             "src": "public/index.php",
             "use": "vercel-php@0.8.0"
-        },
-        {
-            "src": "public/**",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
-            "src": "/storage/(.*)",
-            "dest": "/public/storage/$1"
-        },
-        {
             "src": "/(.*)",
-            "dest": "/public/index.php"
+            "dest": "public/index.php"
         }
     ]
 }
