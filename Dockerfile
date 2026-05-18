@@ -43,4 +43,4 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 EXPOSE 80
 
 # Ejecutar migraciones automáticas al iniciar el contenedor
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate:fresh --seed --force && apache2-foreground
