@@ -34,4 +34,5 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 # Exponer el puerto por defecto
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD php artisan migrate --force && apache2-foreground
+
