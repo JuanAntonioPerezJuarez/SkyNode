@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     git \
     && docker-php-ext-install pdo pdo_sqlite
 
-# Habilitar mod_rewrite para Apache (crucial para las rutas de Laravel)
+# Habilitar mod_rewrite para Apache
 RUN a2enmod rewrite
 
 # Cambiar la raíz de Apache a la carpeta /public de Laravel
@@ -23,8 +23,13 @@ COPY . /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Dar permisos a las carpetas de almacenamiento
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Asegurar que el archivo de base de datos exista si no lo subiste
+RUN mkdir -p /var/www/html/database && touch /var/www/html/database/database.sqlite
+
+# ¡CRUCIAL! Dar permisos a storage, cache Y a la carpeta de la base de datos
+RUN chown -R www-data:www-data /var/www/html/storage \
+    /var/www/html/bootstrap/cache \
+    /var/www/html/database
 
 # Exponer el puerto por defecto
 EXPOSE 80
