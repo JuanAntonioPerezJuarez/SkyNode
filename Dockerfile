@@ -9,9 +9,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     && docker-php-ext-install pdo pdo_sqlite
 
-# Instalar Node.js de forma nativa en la máquina virtual de Docker
+# Instalar Node.js sin "creatividad" extra, solo el software real
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y creativity nodejs
+    && apt-get install -y nodejs
 
 # Habilitar mod_rewrite para Apache
 RUN a2enmod rewrite
